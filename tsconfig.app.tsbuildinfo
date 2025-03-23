@@ -1,0 +1,1 @@
+{"root":["./src/main.ts","./src/vite-env.d.ts","./src/router/index.ts","./src/types/html2pdf.d.ts","./src/app.vue","./src/components/helloworld.vue","./src/components/navbar.vue","./src/views/careermap.vue","./src/views/contact.vue","./src/views/home.vue","./src/views/resume.vue","./src/views/salary.vue"],"errors":true,"version":"5.8.2"}
