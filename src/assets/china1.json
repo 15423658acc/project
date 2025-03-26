@@ -1,0 +1,27 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "id": "110000",
+        "type": "Feature",
+        "properties": {
+          "name": "北京"
+        },
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [[[116.4551, 40.2539], [117.2129, 40.0904], [116.2312, 39.8953], [116.4551, 40.2539]]]
+        }
+      },
+      {
+        "id": "120000",
+        "type": "Feature",
+        "properties": {
+          "name": "天津"
+        },
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [[[117.3616, 39.3427], [117.3616, 38.9987], [116.7019, 38.8888], [117.3616, 39.3427]]]
+        }
+      }
+    ]
+  }

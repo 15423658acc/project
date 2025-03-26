@@ -1,29 +1,39 @@
-<script setup lang="ts">
-import { ref } from 'vue'
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const router = useRouter()
-const activeIndex = ref('1')
+export default defineComponent({
+  setup() {
+    const router = useRouter()
+    const activeIndex = ref('1')
 
-const handleSelect = (key: string) => {
-  switch (key) {
-    case '1':
-      router.push('/')
-      break
-    case '2':
-      router.push('/career-map')
-      break
-    case '3':
-      router.push('/salary')
-      break
-    case '4':
-      router.push('/resume')
-      break
-    case '5':
-      router.push('/contact')
-      break
+    const handleSelect = (key: string) => {
+      switch (key) {
+        case '1':
+          router.push('/')
+          break
+        case '2':
+          router.push('/career-map')
+          break
+        case '3':
+          router.push('/salary')
+          break
+        case '4':
+          router.push('/resume')
+          break
+        case '5':
+          router.push('/contact')
+          break
+      }
+    }
+
+    return {
+      activeIndex,
+      handleSelect,
+      router
+    }
   }
-}
+})
 </script>
 
 <template>
