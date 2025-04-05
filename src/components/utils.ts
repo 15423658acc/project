@@ -1,4 +1,3 @@
-// src/utils/pdfGenerator.ts
 import dayjs from 'dayjs';
 import { ElMessage } from 'element-plus';
 import html2pdf from 'html2pdf.js';

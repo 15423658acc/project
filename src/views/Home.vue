@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { Opportunity, Star, TrendCharts, Document, ArrowDown } from '@element-plus/icons-vue'
+// import { useRouter } from 'vue-router' // 新增路由导入
+
+// 获取路由实例
+// const router = useRouter()
 
 // 定义功能卡片数据
 const features = ref([
@@ -8,27 +12,36 @@ const features = ref([
     title: '职业规划',
     description: '为您提供个性化的职业发展路径建议，基于AI算法分析您的背景和市场需求',
     icon: Opportunity,
-    color: '#59cde9'
+    color: '#59cde9',
+    // path: '/CareerMap' // 新增路径字段
   },
   {
     title: '技能评估',
     description: '全面评估您的技能与目标岗位的匹配度，提供提升建议',
     icon: Star,
-    color: '#0a2a88'
+    color: '#0a2a88',
+    // path: '/Resume' 
   },
   {
     title: '行业分析',
     description: '获取最新行业趋势和就业市场数据，帮助您把握机会',
     icon: TrendCharts,
-    color: '#2774ae'
+    color: '#2774ae',
+    // path: '/Salary' 
   },
   {
     title: '简历优化',
     description: '专业指导帮助您打造完美简历，通过率提升80%',
     icon: Document,
-    color: '#002e5d'
+    color: '#002e5d',
+    // path: '/Resume' 
   }
 ])
+
+// 新增跳转处理方法
+// const navigateTo = (path: string) => {
+//   router.push(path)
+// }
 
 // 动态气泡控制
 const bubblesCount = ref(15)
@@ -90,19 +103,21 @@ const adjustBubblesCount = () => {
       <!-- 功能卡片区域 - 2×2排列 -->
       <div class="features-grid">
         <div 
-          v-for="(feature, index) in features" 
-          :key="index" 
-          class="feature-card"
-          :style="{ '--card-color': feature.color }"
+        v-for="(feature, index) in features" 
+        :key="index" 
+        class="feature-card"
+        :style="{ '--card-color': feature.color }"
         >
-          <div class="card-header">
-            <el-icon :size="28">
+        <!--            @click="navigateTo(feature.path)" -->
+        <div class="card-header">
+          <el-icon :size="28">
               <component :is="feature.icon" />
             </el-icon>
             <h3>{{ feature.title }}</h3>
           </div>
           <div class="card-content">
             <p>{{ feature.description }}</p>
+            <!--  @click.stop="navigateTo(feature.path)" -->
             <el-button type="primary" plain round class="action-btn">了解更多</el-button>
           </div>
         </div>
@@ -364,6 +379,26 @@ const adjustBubblesCount = () => {
         background: rgba(89, 205, 233, 0.1);
       }
     }
+  }
+}
+
+// 新增卡片交互样式
+.feature-card {
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// 为按钮添加悬停效果
+.action-btn {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 }
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue';
+import { defineComponent, computed, ref, nextTick } from 'vue';
 import { generatePDF } from '../utils';
 import type { ResumeFormData } from '../types';
 import BasicInfoForm from './BasicInfoForm.vue';
@@ -35,11 +35,11 @@ export default defineComponent({
     /**
      * 处理PDF生成
      */
-    const handleGeneratePDF = async () => {
+     const handleGeneratePDF = async () => {
       isGenerating.value = true;
       try {
-        // 添加延迟确保DOM更新
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await nextTick(); // 改用nextTick
+        await new Promise(resolve => setTimeout(resolve, 300)); // 增加等待时间
         await generatePDF(formData.value);
       } catch (error) {
         console.error('生成PDF失败:', error);
@@ -72,13 +72,12 @@ export default defineComponent({
 
       <el-form-item style="margin-top: 20px">
         <el-button 
-          type="primary" 
-          @click="handleGeneratePDF"
-          :loading="isGenerating"
-          :disabled="isGenerating"
-        >
-          {{ isGenerating ? '正在生成PDF...' : '下载PDF简历' }}
-        </el-button>
+      type="primary" 
+      @click="handleGeneratePDF"
+      :loading="isGenerating"
+    >
+      {{ isGenerating ? '生成中...' : '下载PDF' }}
+    </el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -101,6 +100,11 @@ export default defineComponent({
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+.el-button {
+  @media print {
+    display: none !important;
   }
 }
 </style>

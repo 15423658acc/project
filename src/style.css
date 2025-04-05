@@ -42,3 +42,24 @@ body {
   margin: 0 auto;
   padding: 2rem;
 }
+
+/* // print.scss */
+@media print {
+  #resume-preview {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 210mm !important;
+    min-height: 297mm !important;
+    background: white !important;
+    
+    * {
+      color: #000 !important;
+      box-shadow: none !important;
+    }
+    
+    .el-tag {
+      border: 1px solid #666 !important;
+    }
+  }
+}

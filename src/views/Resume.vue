@@ -37,7 +37,7 @@ const formData = ref<ResumeFormData>({
 });
 
 // 加载状态
-const isLoading = ref(false);
+// const isLoading = ref(false);
 
 // 监听 formData 的变化
 watchEffect(() => {

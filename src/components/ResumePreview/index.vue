@@ -30,6 +30,7 @@ export default defineComponent({
 </script>
 
 <template>
+  <div id="resume-preview" class="preview-content">
   <div class="resume-preview">
     <!-- 简历头部 -->
     <BasicInfoPreview :form-data="formData" />
@@ -51,6 +52,7 @@ export default defineComponent({
     
     <!-- 技能特长 -->
     <SkillsPreview :form-data="formData" />
+  </div>
   </div>
 </template>
 
