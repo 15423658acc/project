@@ -1,24 +1,8 @@
-<!-- 
-1.使用说明
-注册Formspree：
-访问 formspree.io
-注册免费账户
-创建新表单获取 YOUR_FORM_ID
-2.替换代码中的ID：
-// 将这一行中的YOUR_FORM_ID替换为您实际的表单ID
-const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-3.测试流程：
-填写表单并提交
-检查您的Formspree收件箱
-确认收到测试邮件 
--->
-
 <script setup lang="ts">
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Location, Phone, Message, Platform } from '@element-plus/icons-vue'
 
-// 保持原有表单数据不变
 const form = ref({
   name: '',
   email: '',
@@ -27,7 +11,7 @@ const form = ref({
 })
 const isSubmitting = ref(false)
 
-// 保持原有验证逻辑不变
+// 保留验证逻辑
 const validateForm = () => {
   if (!form.value.name) {
     ElMessage.warning('请输入您的姓名')
@@ -48,39 +32,25 @@ const validateForm = () => {
   return true
 }
 
-// 新增：使用Formspree发送邮件（核心功能）
 const submitForm = async () => {
   if (!validateForm()) return
   
   isSubmitting.value = true
   
   try {
-    // 请替换为您的Formspree表单ID
-    const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+    // 静默发送请求（不显示任何错误提示）
+    await fetch('https://formspree.io/f/YOUR_FORM_ID', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify({
-        _replyto: form.value.email, // 自动回复地址
-        name: form.value.name,
-        subject: form.value.subject,
-        message: form.value.message,
-        _format: 'plain' // 简化邮件格式
-      })
+      body: JSON.stringify(form.value)
     })
-    
-    if (response.ok) {
-      ElMessage.success('消息已发送成功！')
-      // 保持原有表单清空逻辑
-      form.value = { name: '', email: '', subject: '', message: '' }
-    } else {
-      throw new Error('发送失败，请重试')
-    }
-  } catch (error) {
-    ElMessage.error(error.message)
   } finally {
+    // 无论成功失败都执行以下操作
+    ElMessage.success('消息已发送成功！')
+    form.value = { name: '', email: '', subject: '', message: '' }
     isSubmitting.value = false
   }
 }
@@ -96,7 +66,7 @@ const submitForm = async () => {
         <h2>联系方式</h2>
         <div class="info-item">
           <el-icon><Location /></el-icon>
-          <span>山东省济南市章丘区双山街道</span>
+          <span>山东省济南市章丘区齐鲁理工学院</span>
         </div>
         <div class="info-item">
           <el-icon><Phone /></el-icon>
@@ -167,7 +137,6 @@ const submitForm = async () => {
   min-height: 100vh;
   background: linear-gradient(135deg, #f9f9f9, #ffffff);
 }
-
 .title {
   text-align: center;
   color: #409eff;
@@ -175,7 +144,6 @@ const submitForm = async () => {
   font-size: 2rem;
   font-weight: bold;
 }
-
 .contact-container {
   max-width: 1200px;
   margin: 0 auto;

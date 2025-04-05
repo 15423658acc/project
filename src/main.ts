@@ -6,6 +6,7 @@ import 'animate.css'
 import router from './router'
 import './style.css'
 import App from './App.vue'
+import 'animate.css'
 
 const app = createApp(App)
 
