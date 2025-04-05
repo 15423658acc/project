@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { Opportunity, Star, TrendCharts, Document, ArrowDown } from '@element-plus/icons-vue'
-// import { useRouter } from 'vue-router' // 新增路由导入
+import { useRouter } from 'vue-router' // 新增路由导入
 
 // 获取路由实例
-// const router = useRouter()
+const router = useRouter()
 
 // 定义功能卡片数据
 const features = ref([
@@ -13,35 +13,35 @@ const features = ref([
     description: '为您提供个性化的职业发展路径建议，基于AI算法分析您的背景和市场需求',
     icon: Opportunity,
     color: '#59cde9',
-    // path: '/CareerMap' // 新增路径字段
+    path: '/career-map' // 新增路径字段
   },
   {
     title: '技能评估',
     description: '全面评估您的技能与目标岗位的匹配度，提供提升建议',
     icon: Star,
     color: '#0a2a88',
-    // path: '/Resume' 
+    path: '/career-map' 
   },
   {
     title: '行业分析',
     description: '获取最新行业趋势和就业市场数据，帮助您把握机会',
     icon: TrendCharts,
     color: '#2774ae',
-    // path: '/Salary' 
+    path: '/salary' 
   },
   {
     title: '简历优化',
     description: '专业指导帮助您打造完美简历，通过率提升80%',
     icon: Document,
     color: '#002e5d',
-    // path: '/Resume' 
+    path: '/resume' 
   }
 ])
 
 // 新增跳转处理方法
-// const navigateTo = (path: string) => {
-//   router.push(path)
-// }
+const navigateTo = (path: string) => {
+  router.push(path)
+}
 
 // 动态气泡控制
 const bubblesCount = ref(15)
@@ -107,8 +107,8 @@ const adjustBubblesCount = () => {
         :key="index" 
         class="feature-card"
         :style="{ '--card-color': feature.color }"
+         @click="navigateTo(feature.path)"
         >
-        <!--            @click="navigateTo(feature.path)" -->
         <div class="card-header">
           <el-icon :size="28">
               <component :is="feature.icon" />
@@ -117,27 +117,11 @@ const adjustBubblesCount = () => {
           </div>
           <div class="card-content">
             <p>{{ feature.description }}</p>
-            <!--  @click.stop="navigateTo(feature.path)" -->
             <el-button type="primary" plain round class="action-btn">了解更多</el-button>
           </div>
         </div>
       </div>
       
-      <!-- 新增统计展示区域 -->
-      <div class="stats">
-        <div class="stat-item">
-          <div class="stat-number">10,000+</div>
-          <div class="stat-label">成功案例</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">98%</div>
-          <div class="stat-label">用户满意度</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">50+</div>
-          <div class="stat-label">合作企业</div>
-        </div>
-      </div>
     </main>
   </div>
 </template>
@@ -399,48 +383,6 @@ const adjustBubblesCount = () => {
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-}
-
-/* 统计区域 */
-.stats {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  margin-top: 4rem;
-  flex-wrap: wrap;
-  
-  .stat-item {
-    text-align: center;
-    min-width: 120px;
-    
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    
-    .stat-label {
-      font-size: 1rem;
-      color: var(--light-text);
-    }
-  }
-  
-  @media (max-width: 768px) {
-    gap: 2rem;
-    
-    .stat-item {
-      min-width: 100px;
-      
-      .stat-number {
-        font-size: 2rem;
-      }
-    }
   }
 }
 </style>
