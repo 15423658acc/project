@@ -18,13 +18,33 @@ const formData = ref<ResumeFormData>({
 
 
   // 教育经历
-  education: [],
+  education:[{
+    school: '',
+    degree: '',
+    major: '',
+    startDate: '',
+    endDate: '',
+    description: ''
+  }],
 
   // 工作经验
-  experience: [],
+  experience:[{
+    company: '',
+    position: '',
+    startDate: '',
+    endDate: '',
+    description: ''
+  }],
 
   // 项目经验
-  projects: [],
+  projects:[{
+    name: '',
+    role: '',
+    startDate: '',
+    endDate: '',
+    description: '',
+    technologies: ''
+  }],
 
   // 技能特长
   technicalSkills: '',
@@ -119,4 +139,18 @@ const pageDescription = '创建并预览您的专业简历，支持自定义基�
     margin-bottom: 2rem;
   }
 }
+
+// //在样式中添加打印媒体查询
+// @media print {
+//   body, .resume-preview {
+//     margin: 0 !important;
+//     padding: 0 !important;
+//     box-shadow: none !important;
+//   }
+  
+//   .resume-preview {
+//     width: 100% !important;
+//     min-height: auto !important;
+//   }
+// }
 </style>

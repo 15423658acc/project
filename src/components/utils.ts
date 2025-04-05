@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import { ElMessage } from 'element-plus';
 import html2pdf from 'html2pdf.js';
 import type { ResumeFormData } from './types';
+import { nextTick } from 'vue'  //
 
 /**
  * 格式化日期为 YYYY.MM 格式
@@ -72,11 +73,22 @@ const generateResumeHTML = (formData: ResumeFormData): string => {
  * @param formData 简历数据
  */
 export const generatePDF = async (formData: ResumeFormData): Promise<void> => {
+  if (!formData.name) {  //
+    ElMessage.warning('请至少填写姓名后再生成简历')  //
+    return  //
+  }  //
+
+  await nextTick()  //
+  
   const element = document.createElement('div');
+  if (!element) return //
+  console.log('用户输入内容：', element); // 确认数据是否捕获
+
   try {
     // 1. 创建打印内容
     element.innerHTML = generateResumeHTML(formData);
     element.style.width = '210mm';
+    element.style.opacity = '1'; //
     element.style.minHeight = '297mm';
     element.style.padding = '20mm';
     element.style.boxSizing = 'border-box';
@@ -88,16 +100,18 @@ export const generatePDF = async (formData: ResumeFormData): Promise<void> => {
 
     // 2. 生成PDF配置
     const options = {
-      margin: 10,
+      margin: [0.5, 0.5], //10
       filename: `${formData.name || '我的简历'}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { 
         scale: 2,
+        async: true,
         useCORS: true,
         allowTaint: true,
         logging: true,
         scrollX: 0,
-        scrollY: 0
+        scrollY: 0,
+        windowWidth: 794 // A4像素宽度
       },
       jsPDF: {
         unit: 'mm',
@@ -117,4 +131,5 @@ export const generatePDF = async (formData: ResumeFormData): Promise<void> => {
       document.body.removeChild(element);
     }
   }
+  
 };

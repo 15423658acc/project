@@ -63,6 +63,7 @@ export default defineComponent({
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   min-height: 800px;
+  box-sizing: border-box; // 防止内容溢出
 
   .resume-section {
     margin-bottom: 2rem;
